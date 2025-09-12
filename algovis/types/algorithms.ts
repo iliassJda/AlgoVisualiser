@@ -1,0 +1,26 @@
+export interface SortStep {
+	array: number[];
+	comparing: number[];
+	swapped: number[];
+	sorted: number[];
+	step: number;
+}
+
+export interface PatternMatchStep {
+	text: string;
+	pattern: string;
+	textIndex: number;
+	patternIndex: number;
+	patternPosition: number; // Position where pattern starts comparison
+	matches: number[];
+	currentMatch: boolean;
+	step: number;
+}
+
+export interface AlgorithmState {
+	isRunning: boolean;
+	isPaused: boolean;
+	currentStep: number;
+	steps: (SortStep | PatternMatchStep)[];
+	speed: number;
+}

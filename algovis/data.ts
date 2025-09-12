@@ -1,8 +1,6 @@
 // import { url } from "inspector";
 // import { title } from "process";
 
-import { url } from "inspector";
-
 const data = {
 	navMain: [
 		{
@@ -12,6 +10,7 @@ const data = {
 					title: "Brute Force",
 					key: "brute-force",
 					url: "/brute-force",
+					script: "@/utils/pattern_matching/brute-force.tsx",
 				},
 				{
 					title: "Quick Search",
@@ -233,4 +232,23 @@ const data = {
 	],
 };
 
-export default data;
+// Create a dictionary mapping keys to titles
+const keyToTitle: Record<string, string> = {};
+
+data.navMain.forEach((section) => {
+	section.items?.forEach((item) => {
+		if ("key" in item && item.key) {
+			keyToTitle[item.key] = item.title;
+		}
+		// Handle nested items if they exist
+		if ("items" in item && item.items) {
+			item.items.forEach((subitem) => {
+				if ("key" in subitem && subitem.key) {
+					keyToTitle[subitem.key] = subitem.title;
+				}
+			});
+		}
+	});
+});
+
+export { keyToTitle, data };

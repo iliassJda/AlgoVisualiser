@@ -1,7 +1,8 @@
+"use client";
 import * as React from "react";
 import { GalleryVerticalEnd, Minus, Plus } from "lucide-react";
 
-import data from "./data";
+import { data } from "../data";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
 	Sidebar,
@@ -21,13 +22,14 @@ import Link from "next/link";
 // This is sample data.
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+	// const [idx, setIdx] = React.useState(-1);
 	return (
 		<Sidebar {...props}>
 			<SidebarHeader>
 				<SidebarMenu>
 					<SidebarMenuItem>
 						<SidebarMenuButton size="lg" asChild>
-							<a href="">
+							<Link href="/">
 								<div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
 									<GalleryVerticalEnd className="size-4" />
 								</div>
@@ -35,7 +37,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 									<span className="font-medium">Algo Visualiser</span>
 									{/* <span className="">v1.0.0</span> */}
 								</div>
-							</a>
+							</Link>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu>
@@ -44,8 +46,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarContent>
 				<SidebarGroup>
 					<SidebarMenu>
-						{data.navMain.map((item, index) => (
-							<Collapsible key={item.title} defaultOpen={index === 1} className="group/collapsible">
+						{data.navMain.map((item) => (
+							<Collapsible
+								key={item.title}
+								// defaultOpen={index === idx}
+								// onOpenChange={(isOpen) => setIdx(isOpen ? index : -1)}
+								className="group/collapsible"
+							>
 								<SidebarMenuItem>
 									<CollapsibleTrigger asChild>
 										<SidebarMenuButton>
@@ -75,17 +82,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 																		{subitem.items.map((subsubitem) => (
 																			<SidebarMenuSubItem key={subsubitem.title}>
 																				<SidebarMenuSubButton asChild>
-																					<a
+																					<Link
 																						href={
 																							"url" in subsubitem
 																								? subsubitem.url
-																								: "utl" in subsubitem
-																								? subsubitem.utl
+																								: "url" in subsubitem
+																								? subsubitem.url
 																								: "#"
 																						}
 																					>
 																						{subsubitem.title}
-																					</a>
+																					</Link>
 																				</SidebarMenuSubButton>
 																			</SidebarMenuSubItem>
 																		))}
