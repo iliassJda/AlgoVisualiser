@@ -24,3 +24,5 @@ export interface AlgorithmState {
 	steps: (SortStep | PatternMatchStep)[];
 	speed: number;
 }
+
+export type PatternType = "brute-force" | "quick-search" | "kmp";

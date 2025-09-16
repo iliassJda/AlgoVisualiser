@@ -168,7 +168,7 @@ const data = {
 						{
 							title: "Post Order",
 							key: "post-order",
-							utl: "#",
+							url: "#",
 						},
 					],
 				},
@@ -215,14 +215,17 @@ const data = {
 						{
 							title: "Linear Probing",
 							key: "linear-probing",
+							url: "#",
 						},
 						{
 							title: "Quadratic Probing",
 							key: "quadratic probing",
+							url: "#",
 						},
 						{
 							title: "Double Rehashing",
 							key: "double-rehashing",
+							url: "#",
 						},
 					],
 					url: "#",

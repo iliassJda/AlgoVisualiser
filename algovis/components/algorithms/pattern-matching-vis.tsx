@@ -3,9 +3,20 @@
 import { useState, useEffect, useCallback } from "react";
 import { Play, Pause, RotateCcw } from "lucide-react";
 import { generatePatternMatchingSteps } from "@/utils/pattern_matching/brute-force";
-import { PatternMatchStep } from "@/types/algorithms";
+// Import other algorithms when they're created
+import { generateQuickSearchSteps } from "@/utils/pattern_matching/quick-search";
+// import { generateKMPSteps } from "@/utils/pattern_matching/kmp";
+import { PatternMatchStep, PatternType } from "@/types/algorithms";
 
-const PatternMatchingVisualizer = () => {
+// type PatternType = "brute-force" | "quick-search" | "kmp";
+// type PatternType = "brute-force" | "quick-search" | "kmp";
+
+interface PatternMatchingType {
+	type?: PatternType; // Use the specific type instead of string
+}
+
+// const PatternMatchingVisualizer = () => {
+function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 	const [text, setText] = useState("ABABDABACDABABCABCABCABCABC");
 	const [pattern, setPattern] = useState("ABABCABCABC");
 	const [steps, setSteps] = useState<PatternMatchStep[]>([]);
@@ -16,11 +27,35 @@ const PatternMatchingVisualizer = () => {
 
 	const generateSteps = useCallback(() => {
 		if (text && pattern) {
-			const matchSteps = generatePatternMatchingSteps(text, pattern);
+			let matchSteps: PatternMatchStep[];
+
+			switch (type) {
+				case "brute-force":
+					matchSteps = generatePatternMatchingSteps(text, pattern);
+					break;
+				case "quick-search":
+					matchSteps = generateQuickSearchSteps(text, pattern);
+					// For now, fallback to brute-force until quick-search is implemented
+					// console.log("Quick Search algorithm selected");
+					// matchSteps = generatePatternMatchingSteps(text, pattern);
+					break;
+				case "kmp":
+					// matchSteps = generateKMPSteps(text, pattern);
+					// For now, fallback to brute-force until KMP is implemented
+					// console.log("KMP algorithm selected - using brute-force as fallback");
+					matchSteps = generatePatternMatchingSteps(text, pattern);
+					break;
+				default:
+					// Default to brute-force if no type specified or unknown type
+					// console.log("No algorithm type specified or unknown type - using brute-force");
+					matchSteps = generatePatternMatchingSteps(text, pattern);
+					break;
+			}
+
 			setSteps(matchSteps);
 			setCurrentStep(0);
 		}
-	}, [text, pattern]);
+	}, [text, pattern, type]); // Added 'type' to dependencies
 
 	useEffect(() => {
 		generateSteps();
@@ -40,28 +75,66 @@ const PatternMatchingVisualizer = () => {
 		return () => clearInterval(interval);
 	}, [isRunning, isPaused, currentStep, steps.length, speed]);
 
-	const togglePlayPause = () => {
+	const togglePlayPause = useCallback(() => {
 		if (isRunning) {
 			setIsPaused(!isPaused);
 		} else {
 			setIsRunning(true);
 			setIsPaused(false);
 		}
-	};
+	}, [isRunning, isPaused]);
 
-	const reset = () => {
+	const reset = useCallback(() => {
 		setIsRunning(false);
 		setIsPaused(false);
 		setCurrentStep(0);
-	};
+	}, []);
+
+	// Separate useEffect for keyboard navigation
+	useEffect(() => {
+		const handleKeyPress = (event: KeyboardEvent) => {
+			// Only allow manual navigation when not auto-running
+			if (!isRunning || isPaused) {
+				switch (event.key) {
+					case "ArrowLeft":
+						event.preventDefault();
+						setCurrentStep((prev) => Math.max(0, prev - 1));
+						break;
+					case "ArrowRight":
+						event.preventDefault();
+						setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1));
+						break;
+					case " ": // Spacebar for play/pause
+						event.preventDefault();
+						togglePlayPause();
+						break;
+				}
+			}
+		};
+
+		document.addEventListener("keydown", handleKeyPress);
+		return () => document.removeEventListener("keydown", handleKeyPress);
+	}, [isRunning, isPaused, steps.length, togglePlayPause]); // Include togglePlayPause
 
 	const currentStepData = steps[currentStep];
 
 	return (
 		<div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-			{/* <h2 className="text-2xl font-bold mb-6 text-center">
-				Pattern Matching (Brute Force) Visualizer
-			</h2> */}
+			{/* Algorithm Type Indicator */}
+			{/* {type && (
+				<div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+					<h3 className="text-sm font-semibold text-blue-800">
+						Algorithm:{" "}
+						{type === "brute-force"
+							? "Brute Force"
+							: type === "quick-search"
+							? "Quick Search"
+							: type === "kmp"
+							? "Knuth-Morris-Pratt"
+							: type}
+					</h3>
+				</div>
+			)} */}
 
 			{/* Input Controls */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -152,7 +225,7 @@ const PatternMatchingVisualizer = () => {
 								return (
 									<span
 										key={index}
-										className={`px-1 py-1 rounded ${bgColor} transition-colors duration-300`}
+										className={`px-1 py-1 rounded ${bgColor} transition-colors text-center duration-300 w-[2rem] inline-block`}
 									>
 										{char}
 									</span>
@@ -160,15 +233,17 @@ const PatternMatchingVisualizer = () => {
 							})}
 						</div>
 					</div>
-
 					{/* Pattern aligned with text */}
 					<div className="mb-6">
 						<h3 className="text-lg font-semibold mb-2">Pattern:</h3>
-						<div className="font-mono text-lg flex gap-1">
+						<div className="font-mono text-lg flex flex-wrap gap-1">
 							{/* Create spaces to align pattern with current position */}
 							{Array.from({ length: currentStepData.patternPosition }).map((_, index) => (
-								<span key={`space-${index}`} className="px-1 py-1 w-[2.25rem] text-center">
-									{/* Empty space */}
+								<span
+									key={`space-${index}`}
+									className="px-1 py-1 w-[2rem] text-center inline-block"
+								>
+									{/* Empty space to align with text characters */}
 								</span>
 							))}
 							{/* Render the pattern */}
@@ -193,7 +268,7 @@ const PatternMatchingVisualizer = () => {
 								return (
 									<span
 										key={index}
-										className={`px-1 py-1 rounded ${bgColor} transition-colors duration-300 w-[2.25rem] text-center`}
+										className={`px-1 py-1 rounded ${bgColor} transition-colors duration-300 text-center w-[2rem] inline-block`}
 									>
 										{char}
 									</span>
@@ -201,7 +276,6 @@ const PatternMatchingVisualizer = () => {
 							})}
 						</div>
 					</div>
-
 					{/* Matches Found */}
 					<div>
 						<h3 className="text-lg font-semibold mb-2">
@@ -245,6 +319,6 @@ const PatternMatchingVisualizer = () => {
 			</div>
 		</div>
 	);
-};
+}
 
 export default PatternMatchingVisualizer;

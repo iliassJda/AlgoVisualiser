@@ -84,11 +84,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 																				<SidebarMenuSubButton asChild>
 																					<Link
 																						href={
-																							"url" in subsubitem
-																								? subsubitem.url
-																								: "url" in subsubitem
-																								? subsubitem.url
-																								: "#"
+																							subsubitem.url
+																							// "url" in subsubitem
+																							// 	? subsubitem.url
+																							// 	: "url" in subsubitem
+																							// 	? subsubitem.url
+																							// 	: "#"
 																						}
 																					>
 																						{subsubitem.title}
