@@ -29,23 +29,23 @@ const data = {
 			items: [
 				{
 					title: "Vectorial",
-					key: "vectorial",
-					url: "#",
+					key: "linear-vectorial",
+					url: "/linear-vectorial",
 				},
 				{
 					title: "Single Linked",
-					key: "single-linked",
-					url: "#",
+					key: "linear-single-linked",
+					url: "/linear-single-linked",
 				},
 				{
 					title: "Double Linked",
-					key: "double-linked",
-					url: "#",
+					key: "linear-double-linked",
+					url: "/linear-double-linked",
 				},
 				{
 					title: "Improved Double Linked",
-					key: "improved-double-linked",
-					url: "#",
+					key: "linear-improved-double-linked",
+					url: "/linear-improved-double-linked",
 				},
 			],
 		},
@@ -56,73 +56,72 @@ const data = {
 				{
 					title: "Stack",
 					key: "stack",
-					url: "#",
+					url: "/stack",
 				},
 				{
 					title: "Queue",
 					key: "queue",
-					url: "#",
+					url: "/queue",
 				},
 				{
 					title: "Priority Queue",
 					key: "priority-queue",
-					url: "#",
+					url: "/priority-queue",
 				},
 				{
 					title: "Heap",
 					key: "heap",
-					url: "#",
+					url: "/heap",
 				},
 			],
 		},
 		{
 			title: "Sorting Algorithms",
-
 			items: [
 				{
 					title: "Bubble Sort",
 					key: "bubble-sort",
-					url: "#",
+					url: "/bubble-sort",
 				},
 				{
 					title: "Insertion Sort",
 					key: "insertion-sort",
-					url: "#",
+					url: "/insertion-sort",
 				},
 				{
 					title: "Selection Sort",
 					key: "selection-sort",
-					url: "#",
+					url: "/selection-sort",
 				},
 				{
 					title: "Quick Sort",
 					key: "quick-sort",
-					url: "#",
+					url: "/quick-sort",
 				},
 				{
 					title: "Merge Sort",
 					key: "merge-sort",
-					url: "#",
+					url: "/merge-sort",
 				},
 				{
 					title: "Heap Sort",
 					key: "heap-sort",
-					url: "#",
+					url: "/heap-sort",
 				},
 				{
 					title: "Radix Sort",
 					key: "radix-sort",
-					url: "#",
+					url: "/radix-sort",
 				},
 				{
 					title: "Counting Sort",
 					key: "counting-sort",
-					url: "#",
+					url: "/counting-sort",
 				},
 				{
 					title: "Bucket Sort",
 					key: "bucket-sort",
-					url: "#",
+					url: "/bucket-sort",
 				},
 			],
 		},
@@ -136,18 +135,18 @@ const data = {
 					items: [
 						{
 							title: "Linked",
-							key: "linked",
-							url: "#",
+							key: "linked-binary-tree",
+							url: "/linked-binary-tree",
 						},
 						{
 							title: "Vectorial",
-							key: "vectorial",
-							url: "#",
+							key: "vectorial-binary-tree",
+							url: "/vectorial-binary-tree",
 						},
 						{
 							title: "Double Linked",
-							key: "double-linked",
-							url: "#",
+							key: "double-linked-binary-tree",
+							url: "/double-linked-binary-tree",
 						},
 					],
 				},
@@ -157,18 +156,18 @@ const data = {
 					items: [
 						{
 							title: "Pre Order",
-							key: "pre-order",
-							url: "#",
+							key: "pre-order-traversal",
+							url: "/pre-order-traversal",
 						},
 						{
 							title: "In Order",
-							key: "in-order",
-							url: "#",
+							key: "in-order-traversal",
+							url: "/in-order-traversal",
 						},
 						{
 							title: "Post Order",
-							key: "post-order",
-							url: "#",
+							key: "post-order-traversal",
+							url: "/post-order-traversal",
 						},
 					],
 				},
@@ -178,13 +177,13 @@ const data = {
 					items: [
 						{
 							title: "Insert",
-							key: "insert",
-							url: "#",
+							key: "avl-insert",
+							url: "/avl-insert",
 						},
 						{
 							title: "Delete",
-							key: "delete",
-							url: "#",
+							key: "avl-delete",
+							url: "/avl-delete",
 						},
 					],
 				},
@@ -199,13 +198,13 @@ const data = {
 					items: [
 						{
 							title: "Insert",
-							key: "insert",
-							url: "#",
+							key: "external-chaining-insert",
+							url: "/external-chaining-insert",
 						},
 						{
 							title: "Delete",
-							key: "delete",
-							url: "#",
+							key: "external-chaining-delete",
+							url: "/external-chaining-delete",
 						},
 					],
 					url: "#",
@@ -216,17 +215,17 @@ const data = {
 						{
 							title: "Linear Probing",
 							key: "linear-probing",
-							url: "#",
+							url: "/linear-probing",
 						},
 						{
 							title: "Quadratic Probing",
-							key: "quadratic probing",
-							url: "#",
+							key: "quadratic-probing",
+							url: "/quadratic-probing",
 						},
 						{
 							title: "Double Rehashing",
 							key: "double-rehashing",
-							url: "#",
+							url: "/double-rehashing",
 						},
 					],
 					url: "#",

@@ -5,6 +5,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { AppSidebar } from "@/components/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 import { DynamicBreadcrumb } from "@/components/dynamic-breadcrumb";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -29,14 +30,26 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<SidebarProvider>
-					<AppSidebar />
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					// disableTransitionOnChange
+				>
+					<SidebarProvider>
+						<AppSidebar />
 
-					<main className="flex-1">
-						<SidebarTrigger />
-						<div className="flex items-center justify-center min-h-screen">{children}</div>
-					</main>
-				</SidebarProvider>
+						<main className="flex-1">
+							<header className="flex h-16 shrink-0 items-center gap-2 px-4">
+								<SidebarTrigger className="-ml-1" />
+								{/* <Separator orientation="vertical" className="mr-2 h-4" /> */}
+								<DynamicBreadcrumb />
+							</header>
+
+							<div className="flex items-center justify-center min-h-screen">{children}</div>
+						</main>
+					</SidebarProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 		// <html lang="en" suppressHydrationWarning>

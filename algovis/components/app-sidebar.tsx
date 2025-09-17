@@ -7,6 +7,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import {
 	Sidebar,
 	SidebarContent,
+	SidebarFooter,
 	SidebarGroup,
 	SidebarHeader,
 	SidebarMenu,
@@ -18,6 +19,8 @@ import {
 	SidebarRail,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+
+import { ModeToggle } from "./theme-toggle";
 
 // This is sample data.
 
@@ -118,6 +121,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 					</SidebarMenu>
 				</SidebarGroup>
 			</SidebarContent>
+			<SidebarFooter>
+				<ModeToggle />
+			</SidebarFooter>
 			<SidebarRail />
 		</Sidebar>
 	);

@@ -26,3 +26,13 @@ export interface AlgorithmState {
 }
 
 export type PatternType = "brute-force" | "quick-search" | "kmp";
+export type SortType =
+	| "bubble-sort"
+	| "insertion-sort"
+	| "selection-sort"
+	| "merge-sort"
+	| "quick-sort"
+	| "heap-sort"
+	| "radix-sort"
+	| "counting-sort"
+	| "bucket-sort";

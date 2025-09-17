@@ -119,11 +119,11 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 	const currentStepData = steps[currentStep];
 
 	return (
-		<div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+		<div className="w-full max-w-4xl mx-auto p-6 bg-background border rounded-lg shadow-lg">
 			{/* Algorithm Type Indicator */}
 			{/* {type && (
-				<div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-					<h3 className="text-sm font-semibold text-blue-800">
+				<div className="mb-4 p-3 bg-primary/10 border border-primary/20 rounded-lg">
+					<h3 className="text-sm font-semibold text-primary">
 						Algorithm:{" "}
 						{type === "brute-force"
 							? "Brute Force"
@@ -139,7 +139,7 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 			{/* Input Controls */}
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 				<div>
-					<label htmlFor="text" className="block text-sm font-medium mb-2">
+					<label htmlFor="text" className="block text-sm font-medium mb-2 text-foreground">
 						Text:
 					</label>
 					<input
@@ -147,12 +147,12 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 						type="text"
 						value={text}
 						onChange={(e) => setText(e.target.value.toUpperCase())}
-						className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+						className="w-full px-3 py-2 border border-border bg-background text-foreground rounded focus:outline-none focus:ring-2 focus:ring-primary"
 						disabled={isRunning}
 					/>
 				</div>
 				<div>
-					<label htmlFor="pattern" className="block text-sm font-medium mb-2">
+					<label htmlFor="pattern" className="block text-sm font-medium mb-2 text-foreground">
 						Pattern:
 					</label>
 					<input
@@ -160,7 +160,7 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 						type="text"
 						value={pattern}
 						onChange={(e) => setPattern(e.target.value.toUpperCase())}
-						className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+						className="w-full px-3 py-2 border border-border bg-background text-foreground rounded focus:outline-none focus:ring-2 focus:ring-primary"
 						disabled={isRunning}
 					/>
 				</div>
@@ -170,24 +170,24 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 			<div className="flex items-center justify-center gap-4 mb-6">
 				<button
 					onClick={togglePlayPause}
-					className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+					className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
 				>
 					{isRunning && !isPaused ? <Pause size={16} /> : <Play size={16} />}
 					{isRunning && !isPaused ? "Pause" : "Play"}
 				</button>
 				<button
 					onClick={reset}
-					className="flex items-center gap-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
+					className="flex items-center gap-2 px-4 py-2 bg-secondary text-secondary-foreground rounded hover:bg-secondary/80 transition-colors"
 				>
 					<RotateCcw size={16} />
 					Reset
 				</button>
 				<div className="flex items-center gap-2">
-					<label htmlFor="speed" className="text-sm font-medium">
+					<label htmlFor="speed" className="text-sm font-medium text-foreground">
 						Speed:
 					</label>
 					<div className="flex items-center gap-2">
-						<span className="text-xs text-gray-500">Slow</span>
+						<span className="text-xs text-muted-foreground">Slow</span>
 						<input
 							id="speed"
 							type="range"
@@ -196,19 +196,24 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 							step="100"
 							value={speed}
 							onChange={(e) => setSpeed(Number(e.target.value))}
-							className="w-20"
+							className="w-20 h-2 bg-muted rounded-lg appearance-none cursor-pointer 
+								[&::-webkit-slider-track]:bg-muted [&::-webkit-slider-track]:rounded-lg 
+								[&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
+								[&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer
+								[&::-moz-range-track]:bg-muted [&::-moz-range-track]:rounded-lg [&::-moz-range-track]:border-0
+								[&::-moz-range-thumb]:bg-primary [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
 						/>
-						<span className="text-xs text-gray-500">Fast</span>
+						<span className="text-xs text-muted-foreground">Fast</span>
 					</div>
 				</div>
 			</div>
 
 			{/* Visualization */}
 			{currentStepData && (
-				<div className="bg-gray-100 p-6 rounded-lg mb-4">
+				<div className="bg-muted/50 p-6 rounded-lg mb-4">
 					{/* Text */}
 					<div className="mb-6">
-						<h3 className="text-lg font-semibold mb-2">Text:</h3>
+						<h3 className="text-lg font-semibold mb-2 text-foreground">Text:</h3>
 						<div className="font-mono text-lg flex flex-wrap gap-1">
 							{currentStepData.text.split("").map((char, index) => {
 								const isCurrentPosition = index === currentStepData.textIndex;
@@ -217,15 +222,17 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 								);
 
 								let bgColor = "";
-								if (isMatched) bgColor = "bg-green-200";
+								if (isMatched) bgColor = "bg-green-200 dark:bg-green-800";
 								else if (isCurrentPosition) {
-									bgColor = currentStepData.currentMatch ? "bg-yellow-300" : "bg-red-300";
+									bgColor = currentStepData.currentMatch
+										? "bg-yellow-300 dark:bg-yellow-700"
+										: "bg-red-300 dark:bg-red-800";
 								}
 
 								return (
 									<span
 										key={index}
-										className={`px-1 py-1 rounded ${bgColor} transition-colors text-center duration-300 w-[2rem] inline-block`}
+										className={`px-1 py-1 rounded ${bgColor} transition-colors text-center duration-300 w-[2rem] inline-block text-foreground`}
 									>
 										{char}
 									</span>
@@ -235,7 +242,7 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 					</div>
 					{/* Pattern aligned with text */}
 					<div className="mb-6">
-						<h3 className="text-lg font-semibold mb-2">Pattern:</h3>
+						<h3 className="text-lg font-semibold mb-2 text-foreground">Pattern:</h3>
 						<div className="font-mono text-lg flex flex-wrap gap-1">
 							{/* Create spaces to align pattern with current position */}
 							{Array.from({ length: currentStepData.patternPosition }).map((_, index) => (
@@ -254,21 +261,23 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 									textIndex < currentStepData.text.length &&
 									currentStepData.text[textIndex] === char;
 
-								let bgColor = "bg-gray-200";
+								let bgColor = "bg-muted dark:bg-muted";
 								if (isCurrentPosition) {
-									bgColor = isMatching ? "bg-yellow-300" : "bg-red-300";
+									bgColor = isMatching
+										? "bg-yellow-300 dark:bg-yellow-700"
+										: "bg-red-300 dark:bg-red-800";
 								} else if (index < currentStepData.patternIndex) {
 									// Characters already compared
 									bgColor =
 										currentStepData.text[currentStepData.patternPosition + index] === char
-											? "bg-green-300"
-											: "bg-red-200";
+											? "bg-green-300 dark:bg-green-700"
+											: "bg-red-200 dark:bg-red-900";
 								}
 
 								return (
 									<span
 										key={index}
-										className={`px-1 py-1 rounded ${bgColor} transition-colors duration-300 text-center w-[2rem] inline-block`}
+										className={`px-1 py-1 rounded ${bgColor} transition-colors duration-300 text-center w-[2rem] inline-block text-foreground`}
 									>
 										{char}
 									</span>
@@ -278,10 +287,10 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 					</div>
 					{/* Matches Found */}
 					<div>
-						<h3 className="text-lg font-semibold mb-2">
+						<h3 className="text-lg font-semibold mb-2 text-foreground">
 							Matches Found: {currentStepData.matches.length}
 						</h3>
-						<div className="text-sm text-gray-600">
+						<div className="text-sm text-muted-foreground">
 							Positions:{" "}
 							{currentStepData.matches.length > 0 ? currentStepData.matches.join(", ") : "None"}
 						</div>
@@ -290,30 +299,30 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 			)}
 
 			{/* Step Info */}
-			<div className="text-center text-sm text-gray-600 mb-4">
+			<div className="text-center text-sm text-muted-foreground mb-4">
 				Step: {currentStep} / {steps.length - 1}
 			</div>
 
 			{/* Legend */}
-			<div className="flex justify-center gap-4 text-sm flex-wrap">
+			<div className="flex justify-center gap-4 text-sm flex-wrap text-foreground">
 				<div className="flex items-center gap-2">
-					<div className="w-4 h-4 bg-yellow-300 rounded"></div>
+					<div className="w-4 h-4 bg-yellow-300 dark:bg-yellow-700 rounded"></div>
 					<span>Current Comparison</span>
 				</div>
 				<div className="flex items-center gap-2">
-					<div className="w-4 h-4 bg-green-300 rounded"></div>
+					<div className="w-4 h-4 bg-green-300 dark:bg-green-700 rounded"></div>
 					<span>Match</span>
 				</div>
 				<div className="flex items-center gap-2">
-					<div className="w-4 h-4 bg-red-300 rounded"></div>
+					<div className="w-4 h-4 bg-red-300 dark:bg-red-800 rounded"></div>
 					<span>Mismatch</span>
 				</div>
 				<div className="flex items-center gap-2">
-					<div className="w-4 h-4 bg-green-200 rounded"></div>
+					<div className="w-4 h-4 bg-green-200 dark:bg-green-800 rounded"></div>
 					<span>Found Match</span>
 				</div>
 				<div className="flex items-center gap-2">
-					<div className="w-4 h-4 bg-gray-200 rounded"></div>
+					<div className="w-4 h-4 bg-muted dark:bg-muted rounded"></div>
 					<span>Not Yet Compared</span>
 				</div>
 			</div>
