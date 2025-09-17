@@ -5,7 +5,7 @@ import { Play, Pause, RotateCcw } from "lucide-react";
 import { generatePatternMatchingSteps } from "@/utils/pattern_matching/brute-force";
 // Import other algorithms when they're created
 import { generateQuickSearchSteps } from "@/utils/pattern_matching/quick-search";
-// import { generateKMPSteps } from "@/utils/pattern_matching/kmp";
+import { generateKMPSteps } from "@/utils/pattern_matching/kmp";
 import { PatternMatchStep, PatternType } from "@/types/algorithms";
 
 // type PatternType = "brute-force" | "quick-search" | "kmp";
@@ -40,10 +40,10 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 					// matchSteps = generatePatternMatchingSteps(text, pattern);
 					break;
 				case "kmp":
-					// matchSteps = generateKMPSteps(text, pattern);
+					matchSteps = generateKMPSteps(text, pattern);
 					// For now, fallback to brute-force until KMP is implemented
 					// console.log("KMP algorithm selected - using brute-force as fallback");
-					matchSteps = generatePatternMatchingSteps(text, pattern);
+					// matchSteps = generatePatternMatchingSteps(text, pattern);
 					break;
 				default:
 					// Default to brute-force if no type specified or unknown type
@@ -104,10 +104,10 @@ function PatternMatchingVisualizer({ type }: PatternMatchingType) {
 						event.preventDefault();
 						setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1));
 						break;
-					case " ": // Spacebar for play/pause
-						event.preventDefault();
-						togglePlayPause();
-						break;
+					// case " ": // Spacebar for play/pause
+					// 	event.preventDefault();
+					// 	togglePlayPause();
+					// 	break;
 				}
 			}
 		};

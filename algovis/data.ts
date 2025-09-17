@@ -10,7 +10,7 @@ const data = {
 					title: "Brute Force",
 					key: "brute-force",
 					url: "/brute-force",
-					script: "@/utils/pattern_matching/brute-force.tsx",
+					// script: "@/utils/pattern_matching/brute-force.tsx",
 				},
 				{
 					title: "Quick Search",
