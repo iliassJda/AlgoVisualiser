@@ -103,7 +103,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 														) : (
 															<SidebarMenuSubItem>
 																<SidebarMenuSubButton asChild>
-																	<a href={subitem.url}>{subitem.title}</a>
+																	<Link href={subitem.url}>{subitem.title}</Link>
 																</SidebarMenuSubButton>
 															</SidebarMenuSubItem>
 														)}
