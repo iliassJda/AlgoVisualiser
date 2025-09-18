@@ -2,9 +2,10 @@
 // import { keyToTitle } from "@/data";
 import ScriptBlock from "@/components/script-block";
 import PatternMatchingVisualizer from "@/components/algorithms/pattern-matching-vis";
+import SortingVisualizer from "@/components/algorithms/sorting-vis";
 import { PatternType, SortType } from "@/types/algorithms";
 // import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import Unknown from "@/components/unkown";
+// import Unknown from "@/components/unkown";
 
 // Type guard functions using objects as lookup
 const PATTERN_ALGORITHMS = {
@@ -48,8 +49,7 @@ export default async function AlgoPage({ params }: { params: { algo: string } })
 		return (
 			<div className="min-h-screen flex flex-col items-center justify-center p-8 gap-8 mx-auto max-w-6xl">
 				<ScriptBlock title={algo} />
-				{/* <SortingVisualizer type={algo} /> */}
-				<div>Sorting visualizer for {algo} (not implemented yet)</div>
+				<SortingVisualizer type={algo} />
 			</div>
 		);
 	} else {
