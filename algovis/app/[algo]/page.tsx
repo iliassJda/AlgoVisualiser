@@ -1,11 +1,11 @@
-// "use client";
-// import { keyToTitle } from "@/data";
+"use client";
+
+import { use } from "react";
 import ScriptBlock from "@/components/script-block";
 import PatternMatchingVisualizer from "@/components/algorithms/pattern-matching-vis";
 import SortingVisualizer from "@/components/algorithms/sorting-vis";
 import { PatternType, SortType } from "@/types/algorithms";
-// import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-// import Unknown from "@/components/unkown";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // Type guard functions using objects as lookup
 const PATTERN_ALGORITHMS = {
@@ -34,8 +34,8 @@ const isSortType = (algo: string): algo is SortType => {
 	return algo in SORT_ALGORITHMS;
 };
 
-export default async function AlgoPage({ params }: { params: { algo: string } }) {
-	const { algo } = await params;
+export default function AlgoPage({ params }: { params: Promise<{ algo: string }> }) {
+	const { algo } = use(params);
 
 	// Check algorithm type and render appropriate component
 	if (isPatternType(algo)) {
@@ -55,10 +55,12 @@ export default async function AlgoPage({ params }: { params: { algo: string } })
 	} else {
 		return (
 			<div className="min-h-screen flex flex-col items-center justify-center p-8 gap-8 mx-auto max-w-6xl">
-				<ScriptBlock title={algo} />
-				{/* <DotLottieReact src="/BookLoader.lottie" autoplay loop className="w-full max-w-2xl" /> */}
-				{/* <Unknown algo={algo} /> */}
-				<div>Unknown algorithm: {algo}</div>
+				<DotLottieReact src="/BookLoader.lottie" autoplay loop className="w-full max-w-2xl" />
+				{/* <DotLottieReact src="/notFound.lottie" autoplay loop className="w-full max-w-2xl" /> */}
+				<div className="text-center">
+					<h2 className="text-2xl font-semibold mb-2">Algorithm Not Found</h2>
+					<p className="text-muted-foreground">Unknown algorithm: {algo}</p>
+				</div>
 			</div>
 		);
 	}
