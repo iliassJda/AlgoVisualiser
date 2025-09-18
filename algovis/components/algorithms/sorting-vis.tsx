@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Play, Pause, RotateCcw, Shuffle } from "lucide-react";
 import { generateBubbleSortSteps, generateRandomArray } from "@/utils/sorting/bubble-sort";
+import { generateInsertionSortSteps } from "@/utils/sorting/insertion-sort";
 import { SortStep, SortType } from "@/types/algorithms";
 
 interface SortingVisualizerProps {
@@ -27,9 +28,12 @@ export default function SortingVisualizer({ type }: SortingVisualizerProps) {
 				case "bubble-sort":
 					sortSteps = generateBubbleSortSteps(array);
 					break;
+				case "insertion-sort":
+					sortSteps = generateInsertionSortSteps(array);
+					break;
 				// Add other sorting algorithms here as you implement them
 				default:
-					console.log(`${type} not implemented yet, using bubble sort as fallback`);
+					// console.log(`${type} not implemented yet, using bubble sort as fallback`);
 					sortSteps = generateBubbleSortSteps(array);
 			}
 
@@ -40,7 +44,6 @@ export default function SortingVisualizer({ type }: SortingVisualizerProps) {
 
 	useEffect(() => {
 		const res = numbers.split(" ").map(Number);
-		// console.log("This is the res: " + res);
 		const reslen = res.length;
 		if (reslen >= 2) {
 			setArray(res);
