@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { Play, Pause, RotateCcw, Shuffle } from "lucide-react";
 import { generateBubbleSortSteps, generateRandomArray } from "@/utils/sorting/bubble-sort";
 import { generateInsertionSortSteps } from "@/utils/sorting/insertion-sort";
+import { generateSelectionSortSteps } from "@/utils/sorting/selection-sort";
+import { generateQuickSortSteps } from "@/utils/sorting/quick-sort";
 import { SortStep, SortType } from "@/types/algorithms";
 
 interface SortingVisualizerProps {
@@ -30,6 +32,12 @@ export default function SortingVisualizer({ type }: SortingVisualizerProps) {
 					break;
 				case "insertion-sort":
 					sortSteps = generateInsertionSortSteps(array);
+					break;
+				case "selection-sort":
+					sortSteps = generateSelectionSortSteps(array);
+					break;
+				case "quick-sort":
+					sortSteps = generateQuickSortSteps(array);
 					break;
 				// Add other sorting algorithms here as you implement them
 				default:
@@ -97,10 +105,6 @@ export default function SortingVisualizer({ type }: SortingVisualizerProps) {
 						event.preventDefault();
 						setCurrentStep((prev) => Math.min(steps.length - 1, prev + 1));
 						break;
-					// case " ": // Spacebar for play/pause
-					// 	event.preventDefault();
-					// 	togglePlayPause();
-					// 	break;
 				}
 			}
 		};
@@ -129,13 +133,6 @@ export default function SortingVisualizer({ type }: SortingVisualizerProps) {
 
 	return (
 		<div className="w-full max-w-6xl mx-auto p-6 bg-background border rounded-lg shadow-lg">
-			{/* Algorithm Type Indicator */}
-			{/* <div className="mb-4 p-3 bg-primary/10 border border-primary/20 rounded-lg">
-				<h3 className="text-sm font-semibold text-primary">
-					Algorithm: {type.charAt(0).toUpperCase() + type.slice(1).replace("-", " ")}
-				</h3>
-			</div> */}
-
 			{/* Array Size Control */}
 			<div className="mb-6">
 				<div className="mb-2">
